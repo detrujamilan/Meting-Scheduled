@@ -1,0 +1,20 @@
+export default [
+    {
+        day:'Sunday',
+    },
+    {
+        day:'Monday',
+    },
+    {
+        day:'Wednesday',
+    },
+    {
+        day:'Tuesday',
+    },
+    {
+        day:'Firday',
+    },
+    {
+        day:'Saturday',
+    },
+]

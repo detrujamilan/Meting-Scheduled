@@ -1,0 +1,1 @@
+export default [ '#4f75fe','#13c38b','#9f3cfe','#ff555d','#ff7d4f']
