@@ -31,8 +31,8 @@ import {
   Settings,
   Trash,
 } from "lucide-react";
-import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
+import { useRouter } from 'next/navigation';
 import { toast } from "sonner";
 
 const MeetingEventList = () => {
@@ -40,6 +40,8 @@ const MeetingEventList = () => {
   const [businessInfo, setBusinessInfo] = useState();
   const db = getFirestore(app);
   const { user } = useKindeBrowserClient();
+
+  const router = useRouter();
 
   useEffect(() => {
     user && getEventList();
@@ -74,7 +76,7 @@ const MeetingEventList = () => {
 
 
   const onCopyElementHandler = async (event) => {
-    const meetingBaseUrl = process.env.NEXT_PUBLIC__BASE_URL + "/" + businessInfo?.businessName + "/" + event?.id
+    const meetingBaseUrl = process.env.NEXT_PUBLIC_BASE_URL + "/" + businessInfo?.businessName + "/" + event?.id
     navigator.clipboard.writeText(meetingBaseUrl);
     toast("Url Copied on clipboard");
   };
@@ -96,7 +98,12 @@ const MeetingEventList = () => {
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
                     <DropdownMenuItem className="flex gap-2"
-                      onClick={() => { }}
+                      onClick={() => {
+                        router.push('/create-meeting', {
+                          scroll: false,
+                          query: event
+                        })
+                      }}
                     >
                       <Pen className="w-4 h-4" /> Edit
                     </DropdownMenuItem>
@@ -113,7 +120,7 @@ const MeetingEventList = () => {
               <div className="flex justify-between items-center">
                 <h2 className="flex gap-2 items-center text-gray-500">
                   <Clock />
-                  {event?.duration}
+                  {event?.duration} Min
                 </h2>
                 <h2 className="flex gap-2 items-center text-gray-500">
                   <MapPin />

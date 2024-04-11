@@ -2,9 +2,11 @@
 import React, { useState } from "react";
 import MeetingForm from "./_components/MeetingForm";
 import PreviewMeeting from "./_components/PreviewMeeting";
+import { useRouter } from "next/navigation";
 
-const CreateMeeting = () => {
+const CreateMeeting = ({}) => {
   const [formValue, setFormValue] = useState();
+  const router = useRouter();
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3">
