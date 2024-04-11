@@ -32,7 +32,7 @@ import {
   Trash,
 } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 const MeetingEventList = () => {
@@ -45,7 +45,7 @@ const MeetingEventList = () => {
 
   useEffect(() => {
     user && getEventList();
-    user && businessInformation()
+    user && businessInformation();
   }, [user]);
 
   const getEventList = async () => {
@@ -72,15 +72,18 @@ const MeetingEventList = () => {
     const docRef = doc(db, "Business", user?.email);
     const docSnap = await getDoc(docRef);
     setBusinessInfo(docSnap.data());
-  }
-
+  };
 
   const onCopyElementHandler = async (event) => {
-    const meetingBaseUrl = process.env.NEXT_PUBLIC_BASE_URL + "/" + businessInfo?.businessName + "/" + event?.id
+    const meetingBaseUrl =
+      process.env.NEXT_PUBLIC_BASE_URL +
+      "/" +
+      businessInfo?.businessName +
+      "/" +
+      event?.id;
     navigator.clipboard.writeText(meetingBaseUrl);
     toast("Url Copied on clipboard");
   };
-
   return (
     <>
       <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
@@ -97,12 +100,13 @@ const MeetingEventList = () => {
                     <Settings className="cursor-pointer" />
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
-                    <DropdownMenuItem className="flex gap-2"
+                    <DropdownMenuItem
+                      className="flex gap-2"
                       onClick={() => {
-                        router.push('/create-meeting', {
+                        router.push("/create-meeting", {
                           scroll: false,
-                          query: event
-                        })
+                          query: event,
+                        });
                       }}
                     >
                       <Pen className="w-4 h-4" /> Edit
@@ -132,7 +136,7 @@ const MeetingEventList = () => {
                 <h2
                   className="flex cursor-pointer gap-2 text-sm items-center"
                   onClick={() => {
-                    onCopyElementHandler(event)
+                    onCopyElementHandler(event);
                   }}
                 >
                   <Copy className="  h-4 w-4" /> Copy Link

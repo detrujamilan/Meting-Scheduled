@@ -5,7 +5,7 @@ import Image from "next/image";
 import logo from "../../../public/logo.svg";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
+import {  doc, getDoc, getDocs, getFirestore, setDoc } from "firebase/firestore";
 import { app } from "@/config/FirebaseConfig";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { toast } from "sonner";
@@ -13,22 +13,21 @@ import { useRouter } from "next/navigation";
 
 const CreateBusiness = () => {
   const [createBusiness, setCreateBusiness] = useState("");
+  const router = useRouter()
   const db = getFirestore(app);
   const { user } = useKindeBrowserClient();
-
-
 
   const routeExists = async () => {
     const docRef = doc(db, "Business", user?.email);
     const docSnap = await getDoc(docRef);
-    if (!docSnap.exists()) {
+    if (!docSnap.data()) {
       router.replace("/create-business");
     }
   }
 
   useEffect(() => {
     routeExists()
-  }, [user, db])
+  }, [user])
 
   const onCreateBusiness = async () => {
     await setDoc(doc(db, "Business", user.email), {
