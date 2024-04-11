@@ -15,7 +15,6 @@ const CreateBusiness = () => {
   const [createBusiness, setCreateBusiness] = useState("");
   const db = getFirestore(app);
   const { user } = useKindeBrowserClient();
-  const router = useRouter();
 
 
 

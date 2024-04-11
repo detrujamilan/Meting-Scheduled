@@ -36,6 +36,9 @@ const MeetingForm = ({ setFormValue }) => {
     !themeColor || !eventName || !duration || !locationType || !locationUrl;
 
   const router = useRouter();
+  
+
+
   useEffect(() => {
     setFormValue({
       themeColor: themeColor,

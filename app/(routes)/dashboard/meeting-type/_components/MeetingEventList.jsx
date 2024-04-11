@@ -14,6 +14,7 @@ import {
   collection,
   deleteDoc,
   doc,
+  getDoc,
   getDocs,
   getFirestore,
   orderBy,
@@ -30,16 +31,19 @@ import {
   Settings,
   Trash,
 } from "lucide-react";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 const MeetingEventList = () => {
   const [eventList, setEventList] = useState([]);
+  const [businessInfo, setBusinessInfo] = useState();
   const db = getFirestore(app);
   const { user } = useKindeBrowserClient();
 
   useEffect(() => {
     user && getEventList();
+    user && businessInformation()
   }, [user]);
 
   const getEventList = async () => {
@@ -61,6 +65,20 @@ const MeetingEventList = () => {
       getEventList();
     });
   };
+
+  const businessInformation = async () => {
+    const docRef = doc(db, "Business", user?.email);
+    const docSnap = await getDoc(docRef);
+    setBusinessInfo(docSnap.data());
+  }
+
+
+  const onCopyElementHandler = async (event) => {
+    const meetingBaseUrl = process.env.NEXT_PUBLIC__BASE_URL + "/" + businessInfo?.businessName + "/" + event?.id
+    navigator.clipboard.writeText(meetingBaseUrl);
+    toast("Url Copied on clipboard");
+  };
+
   return (
     <>
       <div className="mt-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
@@ -77,7 +95,9 @@ const MeetingEventList = () => {
                     <Settings className="cursor-pointer" />
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
-                    <DropdownMenuItem className="flex gap-2">
+                    <DropdownMenuItem className="flex gap-2"
+                      onClick={() => { }}
+                    >
                       <Pen className="w-4 h-4" /> Edit
                     </DropdownMenuItem>
                     <DropdownMenuItem
@@ -105,8 +125,7 @@ const MeetingEventList = () => {
                 <h2
                   className="flex cursor-pointer gap-2 text-sm items-center"
                   onClick={() => {
-                    navigator.clipboard.writeText(event?.locationUrl);
-                    toast("Url Copied on clipboard");
+                    onCopyElementHandler(event)
                   }}
                 >
                   <Copy className="  h-4 w-4" /> Copy Link
