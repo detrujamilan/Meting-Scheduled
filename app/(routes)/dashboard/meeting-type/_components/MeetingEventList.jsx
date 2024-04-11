@@ -51,7 +51,6 @@ const MeetingEventList = () => {
     );
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      console.log(doc.id, " => ", doc.data());
       setEventList((preEvent) => [...preEvent, doc.data()]);
     });
   };

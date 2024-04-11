@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import logo from "../../../public/logo.svg";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { doc, getFirestore, setDoc } from "firebase/firestore";
+import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
 import { app } from "@/config/FirebaseConfig";
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import { toast } from "sonner";
@@ -17,6 +17,20 @@ const CreateBusiness = () => {
   const { user } = useKindeBrowserClient();
   const router = useRouter();
 
+
+
+  const routeExists = async () => {
+    const docRef = doc(db, "Business", user?.email);
+    const docSnap = await getDoc(docRef);
+    if (!docSnap.exists()) {
+      router.replace("/create-business");
+    }
+  }
+
+  useEffect(() => {
+    routeExists()
+  }, [user, db])
+
   const onCreateBusiness = async () => {
     await setDoc(doc(db, "Business", user.email), {
       businessName: createBusiness,
@@ -25,7 +39,7 @@ const CreateBusiness = () => {
     }).then(() => {
       setCreateBusiness("");
       toast("New Business created successfully");
-      router.replace("/dashboard");
+      router.replace("/dashboard/meeting-type");
     });
   };
 

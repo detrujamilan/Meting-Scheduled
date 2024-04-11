@@ -11,28 +11,26 @@ const Dashboard = () => {
   const db = getFirestore(app);
   const { user } = useKindeBrowserClient();
 
+  const isBusinessRegistered = async () => {
+    const docRef = doc(db, "Business", user.email);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      console.log(docSnap.data());
+    } else {
+      console.log("No such document!");
+    }
+  };
+
   useEffect(() => {
     user && isBusinessRegistered();
   }, [user]);
 
-  const router = useRouter();
-
-  const isBusinessRegistered = async () => {
-    const docRef = doc(db, "Business", user.email);
-    const docSnap = await getDoc(docRef);
-    
-    if (docSnap.exists()) {
-      console.log("Document data:", docSnap.data());
-    } else {
-      console.log("No such document!");
-      router.replace("/create-business");
-    }
-  };
 
   return (
     <>
       <div>
-        <MeetingType/>
+        <MeetingType />
       </div>
     </>
   );

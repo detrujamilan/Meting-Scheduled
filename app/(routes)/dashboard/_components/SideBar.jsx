@@ -61,7 +61,7 @@ const SideBar = () => {
               className={classNames(
                 "w-full hover:bg-blue-100 flex gap-1 justify-start",
                 {
-                  "text-primary bg-blue-100": activePath === item.path,
+                  "text-primary bg-blue-100": activePath === item.path && activePath,
                 }
               )}
               variant="ghost"

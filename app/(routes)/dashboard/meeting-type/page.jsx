@@ -25,7 +25,6 @@ const MeetingType = () => {
       collection(db, "MeetingEvent"),
       where("createBy", "==", user?.email)
     );
-    console.log(q,"q")
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
       console.log(doc.id, " => ", doc.data());

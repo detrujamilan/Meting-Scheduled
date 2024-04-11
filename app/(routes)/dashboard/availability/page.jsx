@@ -78,11 +78,11 @@ const Availability = () => {
               <h2 className="flex gap-2 items-center">
                 <Checkbox
                   checked={
-                    daysAvailable[days.day] ? daysAvailable[days.day] : false
+                    daysAvailable && daysAvailable[days?.day] ? daysAvailable[days?.day] : false
                   }
-                  onCheckedChange={(e) => onCheckedChange(days.day, e)}
+                  onCheckedChange={(e) => onCheckedChange(days?.day, e)}
                 />
-                {days.day}
+                {days?.day}
               </h2>
             </div>
           ))}
