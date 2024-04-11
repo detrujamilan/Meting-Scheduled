@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@kinde-oss/kinde-auth-nextjs": "^2.2.3",
+    "@netlify/edge-bundler": "^11.3.0",
     "@radix-ui/react-checkbox": "^1.0.4",
     "@radix-ui/react-dropdown-menu": "^2.0.6",
     "@radix-ui/react-slot": "^1.0.2",
@@ -17,6 +18,7 @@
     "classnames": "^2.5.1",
     "clsx": "^2.1.0",
     "date-fns": "^3.6.0",
+    "eslint-plugin-react-hooks": "^5.1.0-canary-4c12339ce-20240408",
     "firebase": "^10.10.0",
     "lucide-react": "^0.364.0",
     "next": "14.1.4",
